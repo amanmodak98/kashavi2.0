@@ -85,7 +85,8 @@ export function generateOrganizationSchema() {
     name: 'Kashavi Infotech',
     url: 'https://kashaviinfotech.com',
     logo: 'https://kashaviinfotech.com/images/logo.png',
-    description: 'Digital innovation studio specializing in web development, mobile apps, AI solutions, and digital marketing.',
+    description: 'Digital solutions that grow businesses. We build websites and apps that drive real results with beautiful design and solid code.',
+    foundingDate: '2021',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'IN',
@@ -97,9 +98,17 @@ export function generateOrganizationSchema() {
     },
     sameAs: [
       'https://twitter.com/kashaviinfotech',
-      'https://linkedin.com/company/kashaviinfotech',
+      'https://linkedin.com/company/kashavi',
+      'https://instagram.com/kashavi',
       'https://github.com/kashaviinfotech',
     ],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '50',
+      bestRating: '5',
+      worstRating: '1',
+    },
   };
 }
 

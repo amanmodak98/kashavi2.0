@@ -16,6 +16,20 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+// FAQ Schema for SEO
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(faq => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+
 export default function PricingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
@@ -55,6 +69,13 @@ export default function PricingPage() {
   }, []);
 
   return (
+    <>
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
     <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-orange-50">
       {/* Hero */}
       <section ref={heroRef} className="pt-32 pb-20 px-6 lg:px-12">
@@ -437,5 +458,6 @@ export default function PricingPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }
