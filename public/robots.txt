@@ -1,0 +1,44 @@
+# https://kashaviinfotech.com/robots.txt
+# Kashavi Infotech - SEO Optimized Robots Configuration
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Disallow Next.js internal files
+Disallow: /*.json$
+
+# Sitemap location
+Sitemap: https://kashaviinfotech.com/sitemap.xml
+
+# Specific bot configurations
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+# AI crawlers (for GEO optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
