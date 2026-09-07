@@ -1,0 +1,10 @@
+# Placeholder for Project 01 Screenshot
+
+This is a placeholder for the E-commerce Platform project screenshot.
+
+**Required:**
+- Dimensions: 1600x900px
+- Format: JPG
+- Content: Modern e-commerce website dashboard
+
+See `/public/images/AI_IMAGE_PROMPTS.md` for the full AI generation prompt.

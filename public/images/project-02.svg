@@ -1,0 +1,178 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1600" height="900" fill="#0f172a"/>
+
+  <!-- Sidebar -->
+  <rect width="240" height="900" fill="#1e293b"/>
+
+  <!-- Logo Area -->
+  <rect x="20" y="24" width="32" height="32" rx="6" fill="#8b5cf6"/>
+  <text x="64" y="46" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#f1f5f9">AI Insights</text>
+
+  <!-- Sidebar Menu Items -->
+  <g opacity="0.6">
+    <rect x="20" y="100" width="200" height="40" rx="6" fill="#334155"/>
+    <text x="40" y="125" font-family="Arial, sans-serif" font-size="14" fill="#cbd5e1">Dashboard</text>
+  </g>
+
+  <g opacity="0.9">
+    <rect x="20" y="150" width="200" height="40" rx="6" fill="#8b5cf6"/>
+    <text x="40" y="175" font-family="Arial, sans-serif" font-size="14" fill="#ffffff" font-weight="500">Analytics</text>
+  </g>
+
+  <g opacity="0.6">
+    <rect x="20" y="200" width="200" height="40" rx="6" fill="transparent"/>
+    <text x="40" y="225" font-family="Arial, sans-serif" font-size="14" fill="#cbd5e1">Reports</text>
+  </g>
+
+  <g opacity="0.6">
+    <rect x="20" y="250" width="200" height="40" rx="6" fill="transparent"/>
+    <text x="40" y="275" font-family="Arial, sans-serif" font-size="14" fill="#cbd5e1">Predictions</text>
+  </g>
+
+  <g opacity="0.6">
+    <rect x="20" y="300" width="200" height="40" rx="6" fill="transparent"/>
+    <text x="40" y="325" font-family="Arial, sans-serif" font-size="14" fill="#cbd5e1">Settings</text>
+  </g>
+
+  <!-- Main Content Area -->
+  <!-- Header -->
+  <text x="280" y="56" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#f1f5f9">AI Analytics Dashboard</text>
+  <text x="280" y="84" font-family="Arial, sans-serif" font-size="14" fill="#94a3b8">Real-time insights powered by machine learning</text>
+
+  <!-- Top Stats Cards -->
+  <!-- Card 1 -->
+  <rect x="280" y="120" width="310" height="140" rx="12" fill="#1e293b"/>
+  <text x="300" y="150" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8">Total Revenue</text>
+  <text x="300" y="190" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#06b6d4">$847K</text>
+  <text x="300" y="220" font-family="Arial, sans-serif" font-size="12" fill="#10b981">↑ 23.5%</text>
+  <text x="340" y="220" font-family="Arial, sans-serif" font-size="12" fill="#64748b">vs last month</text>
+
+  <!-- Card 2 -->
+  <rect x="620" y="120" width="310" height="140" rx="12" fill="#1e293b"/>
+  <text x="640" y="150" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8">Active Users</text>
+  <text x="640" y="190" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#8b5cf6">12.4K</text>
+  <text x="640" y="220" font-family="Arial, sans-serif" font-size="12" fill="#10b981">↑ 18.2%</text>
+  <text x="680" y="220" font-family="Arial, sans-serif" font-size="12" fill="#64748b">vs last month</text>
+
+  <!-- Card 3 -->
+  <rect x="960" y="120" width="310" height="140" rx="12" fill="#1e293b"/>
+  <text x="980" y="150" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8">Conversion Rate</text>
+  <text x="980" y="190" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#06b6d4">4.8%</text>
+  <text x="980" y="220" font-family="Arial, sans-serif" font-size="12" fill="#ef4444">↓ 2.1%</text>
+  <text x="1020" y="220" font-family="Arial, sans-serif" font-size="12" fill="#64748b">vs last month</text>
+
+  <!-- Card 4 -->
+  <rect x="1300" y="120" width="280" height="140" rx="12" fill="#1e293b"/>
+  <text x="1320" y="150" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8">AI Score</text>
+  <text x="1320" y="190" font-family="Arial, sans-serif" font-size="36" font-weight="700" fill="#a855f7">94</text>
+  <text x="1320" y="220" font-family="Arial, sans-serif" font-size="12" fill="#10b981">↑ 5 points</text>
+
+  <!-- Main Chart Area -->
+  <rect x="280" y="290" width="880" height="560" rx="12" fill="#1e293b"/>
+  <text x="300" y="320" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#f1f5f9">Revenue Trends</text>
+  <text x="300" y="345" font-family="Arial, sans-serif" font-size="13" fill="#64748b">AI-powered forecasting analysis</text>
+
+  <!-- Chart Grid Lines -->
+  <line x1="320" y1="400" x2="1140" y2="400" stroke="#334155" stroke-width="1" opacity="0.3"/>
+  <line x1="320" y1="500" x2="1140" y2="500" stroke="#334155" stroke-width="1" opacity="0.3"/>
+  <line x1="320" y1="600" x2="1140" y2="600" stroke="#334155" stroke-width="1" opacity="0.3"/>
+  <line x1="320" y1="700" x2="1140" y2="700" stroke="#334155" stroke-width="1" opacity="0.3"/>
+  <line x1="320" y1="800" x2="1140" y2="800" stroke="#334155" stroke-width="1" opacity="0.3"/>
+
+  <!-- Y-axis Labels -->
+  <text x="300" y="405" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="end">$800K</text>
+  <text x="300" y="505" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="end">$600K</text>
+  <text x="300" y="605" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="end">$400K</text>
+  <text x="300" y="705" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="end">$200K</text>
+  <text x="300" y="805" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="end">$0</text>
+
+  <!-- X-axis Labels -->
+  <text x="350" y="830" font-family="Arial, sans-serif" font-size="11" fill="#64748b">Jan</text>
+  <text x="480" y="830" font-family="Arial, sans-serif" font-size="11" fill="#64748b">Mar</text>
+  <text x="610" y="830" font-family="Arial, sans-serif" font-size="11" fill="#64748b">May</text>
+  <text x="740" y="830" font-family="Arial, sans-serif" font-size="11" fill="#64748b">Jul</text>
+  <text x="870" y="830" font-family="Arial, sans-serif" font-size="11" fill="#64748b">Sep</text>
+  <text x="1000" y="830" font-family="Arial, sans-serif" font-size="11" fill="#64748b">Nov</text>
+
+  <!-- Chart Line (Revenue) -->
+  <polyline points="320,650 400,580 480,620 560,540 640,560 720,480 800,460 880,420 960,380 1040,400 1120,360"
+            fill="none" stroke="#06b6d4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Chart Line with gradient fill -->
+  <defs>
+    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  <polygon points="320,800 320,650 400,580 480,620 560,540 640,560 720,480 800,460 880,420 960,380 1040,400 1120,360 1120,800"
+           fill="url(#chartGradient)"/>
+
+  <!-- Forecast Line (Dotted) -->
+  <polyline points="1120,360 1140,340"
+            fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+
+  <!-- Legend -->
+  <circle cx="320" cy="370" r="4" fill="#06b6d4"/>
+  <text x="330" y="374" font-family="Arial, sans-serif" font-size="12" fill="#94a3b8">Actual Revenue</text>
+
+  <line x1="410" y1="370" x2="430" y2="370" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="440" y="374" font-family="Arial, sans-serif" font-size="12" fill="#94a3b8">AI Forecast</text>
+
+  <!-- Side Panel - AI Insights -->
+  <rect x="1190" y="290" width="390" height="280" rx="12" fill="#1e293b"/>
+  <text x="1210" y="320" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#f1f5f9">AI Insights</text>
+
+  <!-- Insight 1 -->
+  <rect x="1210" y="340" width="350" height="70" rx="8" fill="#0f172a"/>
+  <circle cx="1230" cy="365" r="6" fill="#8b5cf6"/>
+  <text x="1250" y="360" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#f1f5f9">Peak Traffic Hours</text>
+  <text x="1250" y="380" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">2-4 PM shows 34% higher</text>
+  <text x="1250" y="395" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">conversion rates</text>
+
+  <!-- Insight 2 -->
+  <rect x="1210" y="420" width="350" height="70" rx="8" fill="#0f172a"/>
+  <circle cx="1230" cy="445" r="6" fill="#06b6d4"/>
+  <text x="1250" y="440" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#f1f5f9">User Retention</text>
+  <text x="1250" y="460" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">Mobile users 2.3x more likely</text>
+  <text x="1250" y="475" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">to return within 7 days</text>
+
+  <!-- Insight 3 -->
+  <rect x="1210" y="500" width="350" height="60" rx="8" fill="#0f172a"/>
+  <circle cx="1230" cy="520" r="6" fill="#10b981"/>
+  <text x="1250" y="520" font-family="Arial, sans-serif" font-size="13" font-weight="500" fill="#f1f5f9">Revenue Opportunity</text>
+  <text x="1250" y="540" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">Predicted $120K increase next Q</text>
+
+  <!-- Side Panel - Top Products -->
+  <rect x="1190" y="590" width="390" height="260" rx="12" fill="#1e293b"/>
+  <text x="1210" y="620" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#f1f5f9">Top Products</text>
+
+  <!-- Product 1 -->
+  <rect x="1210" y="640" width="40" height="40" rx="6" fill="#8b5cf6" opacity="0.2"/>
+  <text x="1265" y="655" font-family="Arial, sans-serif" font-size="13" fill="#f1f5f9">Premium Plan</text>
+  <text x="1265" y="673" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">$45,230</text>
+  <rect x="1450" y="655" width="100" height="6" rx="3" fill="#334155"/>
+  <rect x="1450" y="655" width="85" height="6" rx="3" fill="#8b5cf6"/>
+
+  <!-- Product 2 -->
+  <rect x="1210" y="690" width="40" height="40" rx="6" fill="#06b6d4" opacity="0.2"/>
+  <text x="1265" y="705" font-family="Arial, sans-serif" font-size="13" fill="#f1f5f9">Pro Services</text>
+  <text x="1265" y="723" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">$38,950</text>
+  <rect x="1450" y="705" width="100" height="6" rx="3" fill="#334155"/>
+  <rect x="1450" y="705" width="70" height="6" rx="3" fill="#06b6d4"/>
+
+  <!-- Product 3 -->
+  <rect x="1210" y="740" width="40" height="40" rx="6" fill="#10b981" opacity="0.2"/>
+  <text x="1265" y="755" font-family="Arial, sans-serif" font-size="13" fill="#f1f5f9">Basic Plan</text>
+  <text x="1265" y="773" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">$32,180</text>
+  <rect x="1450" y="755" width="100" height="6" rx="3" fill="#334155"/>
+  <rect x="1450" y="755" width="58" height="6" rx="3" fill="#10b981"/>
+
+  <!-- Product 4 -->
+  <rect x="1210" y="790" width="40" height="40" rx="6" fill="#f59e0b" opacity="0.2"/>
+  <text x="1265" y="805" font-family="Arial, sans-serif" font-size="13" fill="#f1f5f9">Consulting</text>
+  <text x="1265" y="823" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8">$28,640</text>
+  <rect x="1450" y="805" width="100" height="6" rx="3" fill="#334155"/>
+  <rect x="1450" y="805" width="52" height="6" rx="3" fill="#f59e0b"/>
+</svg>
