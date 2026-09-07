@@ -7,9 +7,9 @@ export const founderStory = {
     "Great digital products require both creative thinking and technical excellence. Not one or the other. When design and development work together from day one, magic happens.",
     "Kashavi exists to prove that beautiful design and solid engineering aren't mutually exclusive. We're here to build products that look amazing and work flawlessly."
   ],
-  signature: "Aman Kashyap, Founder & CEO",
-  photo: "/images/team/aman-kashyap.jpg",
-  photoAlt: "Aman Kashyap, Founder & CEO of Kashavi Infotech"
+  signature: "Kapil Kumar, Founder & CEO",
+  photo: "/images/team/Anurag-kashyap.jpg",
+  photoAlt: "Kapil Kumar, Founder & CEO of Kashavi Infotech"
 };
 
 export const problemCards = [
@@ -87,8 +87,8 @@ export const metrics = [
 
 export const team = [
   {
-    id: "aman-kashyap",
-    name: "Aman Kashyap",
+    id: "Anurag-kashyap",
+    name: "Kapil Kumar",
     role: "Founder & CEO",
     bio: "Started coding at 16, got frustrated with bad websites at 19, convinced he could do better at 21, and proving it at 26. Obsessed with the space between design and code where most projects fail.",
     avatar: "AK",

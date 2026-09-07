@@ -178,7 +178,7 @@ Add FAQ schema to pricing, about, services pages. IndiaNIC doesn't have this.
 ```json
 {
   "@type": "Person",
-  "name": "Aman Kashyap",
+  "name": "Kapil Kumar",
   "jobTitle": "Founder & CEO",
   "url": "https://kashaviinfotech.com/about"
 }
@@ -271,7 +271,7 @@ Your case studies show "+340% revenue". They don't show specific numbers.
 ### This Month (High Priority)
 - [ ] Add FAQ schema to 3-5 pages
 - [ ] Add Service schema to services page
-- [ ] Add Person schema for Aman Kashyap
+- [ ] Add Person schema for Kapil Kumar
 - [ ] Create 3 in-depth blog posts (2000+ words each)
 - [ ] Add structured data to all project case studies
 
