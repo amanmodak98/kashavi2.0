@@ -41,7 +41,7 @@ export function Hero() {
           <div>
             <div className="hero-content flex items-center gap-3 mb-6">
               <div className="w-8 h-[1px] bg-stone-400" />
-              <span className="text-xs font-medium uppercase tracking-wider text-stone-500">
+              <span className="text-xs font-medium uppercase tracking-wider text-stone-600">
                 Digital Solutions That Deliver
               </span>
             </div>
@@ -92,7 +92,7 @@ export function Hero() {
             </div>
 
             {/* Trust Signal */}
-            <p className="hero-content mt-8 text-sm text-stone-500">
+            <p className="hero-content mt-8 text-sm text-stone-600">
               ⭐ Rated 4.9/5 by our clients • Trusted by 50+ businesses
             </p>
           </div>

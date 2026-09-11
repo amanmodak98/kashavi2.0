@@ -28,15 +28,15 @@ export function Hero3DMobile() {
           <div className="grid grid-cols-3 gap-4 mb-10 max-w-md mx-auto">
             <div>
               <div className="text-3xl font-black text-orange-500 mb-1">50+</div>
-              <div className="text-xs text-stone-400">Projects</div>
+              <div className="text-xs text-stone-600">Projects</div>
             </div>
             <div>
               <div className="text-3xl font-black text-orange-500 mb-1">98%</div>
-              <div className="text-xs text-stone-400">Happy</div>
+              <div className="text-xs text-stone-600">Happy</div>
             </div>
             <div>
               <div className="text-3xl font-black text-orange-500 mb-1">2-3wk</div>
-              <div className="text-xs text-stone-400">Delivery</div>
+              <div className="text-xs text-stone-600">Delivery</div>
             </div>
           </div>
 

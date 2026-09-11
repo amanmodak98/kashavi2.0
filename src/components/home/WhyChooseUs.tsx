@@ -36,7 +36,7 @@ export function WhyChooseUs() {
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-8 h-[1px] bg-stone-400" />
-            <span className="text-xs font-medium uppercase tracking-wider text-stone-500">
+            <span className="text-xs font-medium uppercase tracking-wider text-stone-600">
               Why Choose Us
             </span>
             <div className="w-8 h-[1px] bg-stone-400" />
@@ -67,7 +67,7 @@ export function WhyChooseUs() {
                 {reason.description}
               </p>
               <div className="pl-4 border-l-4 border-orange-200">
-                <p className="text-sm text-stone-500 italic">
+                <p className="text-sm text-stone-600 italic">
                   "{reason.example}"
                 </p>
               </div>

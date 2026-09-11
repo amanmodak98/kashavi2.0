@@ -1,463 +1,470 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
-import { prefersReducedMotion } from '@/lib/animations';
 import {
   pricingTiers,
   retainers,
   addOns,
   faqs,
-  comparisonFeatures
+  comparisonFeatures,
 } from './pricingData';
 
-gsap.registerPlugin(ScrollTrigger);
-
-// FAQ Schema for SEO
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     '@type': 'Question',
     name: faq.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: faq.answer,
-    },
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
   })),
 };
 
+const CheckIcon = ({ className = 'w-5 h-5' }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 6 9 17l-5-5" />
+  </svg>
+);
+
+const MinusIcon = ({ className = 'w-5 h-5' }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M6 12h12" />
+  </svg>
+);
+
 export default function PricingPage() {
-  const heroRef = useRef<HTMLDivElement>(null);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (!heroRef.current) return;
-
-    const ctx = gsap.context(() => {
-      if (!prefersReducedMotion()) {
-        const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
-
-        tl.fromTo('.hero-content',
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8, stagger: 0.15 }
-        );
-
-        gsap.utils.toArray('.fade-up-section').forEach((section: any) => {
-          gsap.fromTo(section,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: section,
-                start: 'top 70%',
-                once: true
-              }
-            }
-          );
-        });
-      }
-    }, heroRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <>
-      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-orange-50">
-      {/* Hero */}
-      <section ref={heroRef} className="pt-32 pb-20 px-6 lg:px-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-12 h-[1px] bg-stone-400" />
-            <span className="text-xs font-medium uppercase tracking-wider text-stone-500">
-              PRICING
-            </span>
-            <div className="w-12 h-[1px] bg-stone-400" />
+      <div className="bg-canvas">
+        {/* Hero */}
+        <section className="relative overflow-hidden bg-warm">
+          <div className="absolute inset-0 bg-grid opacity-30" aria-hidden="true" />
+          <div
+            className="absolute -top-40 -left-32 w-[28rem] h-[28rem] bg-brand-200/40 rounded-full blur-3xl animate-drift"
+            aria-hidden="true"
+          />
+
+          <div className="relative container-x pt-16 pb-16 md:pt-20 md:pb-20 text-center">
+            <div className="max-w-3xl mx-auto">
+              <span className="eyebrow eyebrow-center mb-6">Pricing</span>
+              <h1 className="text-balance mb-5">
+                Transparent pricing,<br />no surprises.
+              </h1>
+              <p className="text-lg md:text-xl text-ink-600 leading-relaxed max-w-2xl mx-auto mb-6">
+                Choose a package that fits your needs, or let&apos;s build something custom.
+                No hidden fees, no complicated contracts.
+              </p>
+              <p className="text-sm text-ink-600 font-medium inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-line">
+                <span aria-hidden="true">💼</span>
+                Join 50+ businesses who trust us with their digital presence
+              </p>
+            </div>
           </div>
+        </section>
 
-          <h1 className="hero-content text-4xl md:text-5xl lg:text-6xl font-bold text-stone-900 mb-6 leading-tight">
-            Transparent pricing,<br />no surprises.
-          </h1>
-
-          <p className="hero-content text-lg md:text-xl text-stone-600 leading-relaxed mb-8 max-w-2xl mx-auto">
-            Choose a package that fits your needs, or let's build something custom.
-            No hidden fees, no complicated contracts.
-          </p>
-
-          <p className="hero-content text-sm text-stone-500 font-medium">
-            💼 Join 50+ businesses who trust us with their digital presence
-          </p>
-        </div>
-      </section>
-
-      {/* Pricing Tiers */}
-      <section className="fade-up-section py-16 md:py-20 px-6 lg:px-12">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 items-start">
-            {pricingTiers.map((tier, index) => (
-              <motion.div
-                key={tier.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: index * 0.15, duration: 0.5 }}
-                className={`relative bg-white rounded-2xl p-8 border-2 transition-all duration-300 ${
-                  tier.popular
-                    ? 'border-orange-500 shadow-xl shadow-orange-100 md:-translate-y-4'
-                    : 'border-stone-200 hover:border-orange-300 hover:shadow-lg'
-                }`}
-              >
-                {tier.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="inline-block px-4 py-1.5 bg-orange-500 text-white text-xs font-bold uppercase tracking-wider rounded-full">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-stone-900 mb-2">{tier.name}</h3>
-                  <p className="text-sm text-stone-600 mb-4">{tier.tagline}</p>
-
-                  <div className="mb-2">
-                    <span className="text-4xl font-bold text-stone-900">{tier.priceRange}</span>
-                  </div>
-                  <p className="text-sm text-stone-500">{tier.period}</p>
-                </div>
-
-                <p className="text-stone-600 mb-6 leading-relaxed">{tier.description}</p>
-
-                <ul className="space-y-3 mb-8">
-                  {tier.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-sm text-stone-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href="/contact"
-                  className={`block w-full py-3 px-6 rounded-xl font-semibold text-center transition-all duration-300 ${
+        {/* Tiers */}
+        <section className="section bg-surface">
+          <div className="container-x">
+            <div className="grid md:grid-cols-3 gap-6 items-stretch">
+              {pricingTiers.map((tier, index) => (
+                <motion.article
+                  key={tier.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  className={`relative bg-white rounded-2xl border p-7 md:p-8 flex flex-col transition-all duration-normal ease-out-soft hover:shadow-lift ${
                     tier.popular
-                      ? 'bg-orange-500 text-white hover:bg-orange-600 shadow-md hover:shadow-lg hover:scale-105'
-                      : 'bg-stone-100 text-stone-900 hover:bg-stone-200'
+                      ? 'border-brand-500 shadow-brand-soft md:-translate-y-3'
+                      : 'border-line hover:border-line-strong'
                   }`}
                 >
-                  {tier.cta}
-                </Link>
-
-                <p className="text-xs text-stone-500 text-center mt-4">
-                  ⏱️ Timeline: {tier.timeline}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="fade-up-section py-16 md:py-20 px-6 lg:px-12 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
-              Compare Packages
-            </h2>
-            <p className="text-lg text-stone-600">
-              See what's included in each tier
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {comparisonFeatures.map((category) => (
-              <div key={category.category}>
-                <h3 className="text-lg font-bold text-stone-900 mb-4 pb-2 border-b-2 border-orange-200">
-                  {category.category}
-                </h3>
-                <div className="space-y-3">
-                  {category.features.map((feature, i) => (
-                    <div key={i} className="grid grid-cols-4 gap-4 items-center py-3 hover:bg-orange-50 rounded-lg px-4 transition-colors">
-                      <div className="col-span-1 text-sm font-medium text-stone-700">
-                        {feature.name}
-                      </div>
-                      <div className="text-center">
-                        {typeof feature.starter === 'boolean' ? (
-                          feature.starter ? (
-                            <svg className="w-5 h-5 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                            </svg>
-                          ) : (
-                            <svg className="w-5 h-5 text-stone-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          )
-                        ) : (
-                          <span className="text-sm text-stone-600">{feature.starter}</span>
-                        )}
-                      </div>
-                      <div className="text-center">
-                        {typeof feature.growth === 'boolean' ? (
-                          feature.growth ? (
-                            <svg className="w-5 h-5 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                            </svg>
-                          ) : (
-                            <svg className="w-5 h-5 text-stone-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          )
-                        ) : (
-                          <span className="text-sm text-stone-600 font-medium">{feature.growth}</span>
-                        )}
-                      </div>
-                      <div className="text-center">
-                        {typeof feature.enterprise === 'boolean' ? (
-                          feature.enterprise ? (
-                            <svg className="w-5 h-5 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                            </svg>
-                          ) : (
-                            <svg className="w-5 h-5 text-stone-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          )
-                        ) : (
-                          <span className="text-sm text-stone-600">{feature.enterprise}</span>
-                        )}
-                      </div>
+                  {tier.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="inline-block px-3.5 py-1.5 bg-brand-600 text-white text-xs font-semibold tracking-wider rounded-full uppercase">
+                        Most Popular
+                      </span>
                     </div>
-                  ))}
-                </div>
+                  )}
+
+                  <div className="mb-6">
+                    <h3 className="text-xl font-semibold text-ink-900 mb-2 tracking-tight">
+                      {tier.name}
+                    </h3>
+                    <p className="text-sm text-ink-600 mb-5">{tier.tagline}</p>
+
+                    <div className="mb-1">
+                      <span className="text-3xl md:text-4xl font-bold text-ink-900 tracking-tight tabular-nums">
+                        {tier.priceRange}
+                      </span>
+                    </div>
+                    <p className="text-sm text-ink-500">{tier.period}</p>
+                  </div>
+
+                  <p className="text-ink-600 mb-6 leading-relaxed text-sm">{tier.description}</p>
+
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {tier.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2.5">
+                        <span className="text-emerald-500 flex-shrink-0 mt-0.5">
+                          <CheckIcon className="w-4 h-4" />
+                        </span>
+                        <span className="text-sm text-ink-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href="/contact"
+                    className={`btn w-full ${tier.popular ? 'btn-primary' : 'btn-secondary'}`}
+                  >
+                    {tier.cta}
+                    <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M5 12h14" />
+                      <path d="m12 5 7 7-7 7" />
+                    </svg>
+                  </Link>
+
+                  <p className="text-xs text-ink-500 text-center mt-4">
+                    <span aria-hidden="true">⏱️</span> Timeline: {tier.timeline}
+                  </p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Comparison */}
+        <section className="section bg-warm-soft">
+          <div className="container-narrow">
+            <div className="section-heading section-heading-center">
+              <span className="eyebrow eyebrow-center mb-5">Compare</span>
+              <h2 className="text-balance">Compare packages</h2>
+              <p className="text-lg text-ink-600 mt-4">
+                See what&apos;s included in each tier
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl border border-line overflow-hidden">
+              {/* Header */}
+              <div className="hidden sm:grid grid-cols-4 gap-4 px-6 py-4 bg-ink-100 border-b border-line text-sm font-semibold text-ink-700">
+                <div>Feature</div>
+                <div className="text-center">Starter</div>
+                <div className="text-center">Growth</div>
+                <div className="text-center">Enterprise</div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Retainers */}
-      <section className="fade-up-section py-16 md:py-20 px-6 lg:px-12">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
-              Ongoing Support & Maintenance
-            </h2>
-            <p className="text-lg text-stone-600">
-              Keep your site running smoothly with monthly retainers
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {retainers.map((retainer) => (
-              <motion.div
-                key={retainer.id}
-                whileHover={{ y: -4 }}
-                className={`bg-white rounded-2xl p-8 border-2 transition-all duration-300 ${
-                  retainer.popular
-                    ? 'border-orange-500 shadow-lg'
-                    : 'border-stone-200 hover:border-orange-300 hover:shadow-md'
-                }`}
-              >
-                {retainer.popular && (
-                  <span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full mb-4">
-                    Popular Choice
-                  </span>
-                )}
-                <h3 className="text-xl font-bold text-stone-900 mb-2">{retainer.name}</h3>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold text-stone-900">{retainer.price}</span>
-                  <span className="text-stone-500 ml-2">{retainer.period}</span>
-                </div>
-                <p className="text-stone-600 mb-6">{retainer.description}</p>
-                <ul className="space-y-2">
-                  {retainer.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <svg className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-sm text-stone-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Add-ons */}
-      <section className="fade-up-section py-16 md:py-20 px-6 lg:px-12 bg-stone-50">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
-              Enhance Your Project
-            </h2>
-            <p className="text-lg text-stone-600">
-              À la carte services to extend your capabilities
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            {addOns.map((addon, i) => (
-              <div key={i} className="flex items-center justify-between p-4 bg-white rounded-lg border border-stone-200 hover:border-orange-300 transition-colors">
-                <span className="font-medium text-stone-900">{addon.name}</span>
-                <span className="text-sm text-stone-600">{addon.price}</span>
+              <div className="divide-y divide-line">
+                {comparisonFeatures.map((category) => (
+                  <div key={category.category}>
+                    <div className="px-6 py-3 bg-brand-50 border-y border-line">
+                      <h3 className="font-semibold text-brand-800 text-sm tracking-wide uppercase">
+                        {category.category}
+                      </h3>
+                    </div>
+                    {category.features.map((feature, i) => (
+                      <div
+                        key={i}
+                        className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 px-6 py-3.5 hover:bg-ink-100/50 transition-colors text-sm"
+                      >
+                        <div className="font-medium text-ink-700">{feature.name}</div>
+                        <div className="text-center">
+                          {typeof feature.starter === 'boolean' ? (
+                            feature.starter ? (
+                              <span className="inline-flex w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 items-center justify-center">
+                                <CheckIcon className="w-3.5 h-3.5" />
+                              </span>
+                            ) : (
+                              <span className="inline-flex w-6 h-6 rounded-full bg-ink-100 text-ink-400 items-center justify-center">
+                                <MinusIcon className="w-3.5 h-3.5" />
+                              </span>
+                            )
+                          ) : (
+                            <span className="text-ink-700">{feature.starter}</span>
+                          )}
+                        </div>
+                        <div className="text-center">
+                          {typeof feature.growth === 'boolean' ? (
+                            feature.growth ? (
+                              <span className="inline-flex w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 items-center justify-center">
+                                <CheckIcon className="w-3.5 h-3.5" />
+                              </span>
+                            ) : (
+                              <span className="inline-flex w-6 h-6 rounded-full bg-ink-100 text-ink-400 items-center justify-center">
+                                <MinusIcon className="w-3.5 h-3.5" />
+                              </span>
+                            )
+                          ) : (
+                            <span className="text-ink-700 font-medium">{feature.growth}</span>
+                          )}
+                        </div>
+                        <div className="text-center">
+                          {typeof feature.enterprise === 'boolean' ? (
+                            feature.enterprise ? (
+                              <span className="inline-flex w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 items-center justify-center">
+                                <CheckIcon className="w-3.5 h-3.5" />
+                              </span>
+                            ) : (
+                              <span className="inline-flex w-6 h-6 rounded-full bg-ink-100 text-ink-400 items-center justify-center">
+                                <MinusIcon className="w-3.5 h-3.5" />
+                              </span>
+                            )
+                          ) : (
+                            <span className="text-ink-700">{feature.enterprise}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Payment & Terms */}
-      <section className="fade-up-section py-16 md:py-20 px-6 lg:px-12">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
-              Flexible Payment Options
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-2xl p-8 border-2 border-stone-200 hover:border-orange-300 transition-colors">
-              <div className="text-4xl mb-4">💳</div>
-              <h3 className="text-xl font-bold text-stone-900 mb-3">How Payment Works</h3>
-              <ul className="space-y-2 text-sm text-stone-600">
-                <li>• 50% upfront to start</li>
-                <li>• 50% on final delivery</li>
-                <li>• Milestone-based for large projects</li>
-                <li>• Monthly billing for retainers</li>
-                <li>• Major cards accepted</li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-2xl p-8 border-2 border-stone-200 hover:border-orange-300 transition-colors">
-              <div className="text-4xl mb-4">📋</div>
-              <h3 className="text-xl font-bold text-stone-900 mb-3">Our Guarantee</h3>
-              <ul className="space-y-2 text-sm text-stone-600">
-                <li>• Money-back guarantee*</li>
-                <li>• No hidden fees</li>
-                <li>• Clear contracts</li>
-                <li>• Cancel anytime (retainers)</li>
-                <li>• Full ownership of code</li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-2xl p-8 border-2 border-stone-200 hover:border-orange-300 transition-colors">
-              <div className="text-4xl mb-4">⏱️</div>
-              <h3 className="text-xl font-bold text-stone-900 mb-3">Typical Timeline</h3>
-              <ul className="space-y-2 text-sm text-stone-600">
-                <li>• Starter: 2-3 weeks</li>
-                <li>• Growth: 4-6 weeks</li>
-                <li>• Enterprise: Custom</li>
-                <li>• We'll never rush quality</li>
-              </ul>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ */}
-      <section className="fade-up-section py-16 md:py-20 px-6 lg:px-12 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
-              Common Questions
-            </h2>
-            <p className="text-lg text-stone-600">
-              Everything you need to know about our pricing
-            </p>
-          </div>
+        {/* Retainers */}
+        <section className="section bg-surface">
+          <div className="container-x">
+            <div className="section-heading section-heading-center">
+              <span className="eyebrow eyebrow-center mb-5">Retainers</span>
+              <h2 className="text-balance">Ongoing support & maintenance</h2>
+              <p className="text-lg text-ink-600 mt-4">
+                Keep your site running smoothly with monthly retainers
+              </p>
+            </div>
 
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="bg-stone-50 rounded-xl overflow-hidden border border-stone-200 hover:border-orange-300 transition-colors"
-              >
-                <button
-                  onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left"
+            <div className="grid md:grid-cols-3 gap-6">
+              {retainers.map((retainer) => (
+                <motion.div
+                  key={retainer.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className={`bg-white rounded-2xl border p-7 transition-all duration-normal ease-out-soft hover:shadow-soft ${
+                    retainer.popular
+                      ? 'border-brand-500 shadow-brand-soft'
+                      : 'border-line hover:border-line-strong'
+                  }`}
                 >
-                  <span className="font-semibold text-stone-900 pr-4">{faq.question}</span>
-                  <svg
-                    className={`w-5 h-5 text-stone-500 flex-shrink-0 transition-transform duration-300 ${
-                      expandedFAQ === index ? 'rotate-180' : ''
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  {retainer.popular && (
+                    <span className="badge mb-4">Popular Choice</span>
+                  )}
+                  <h3 className="text-lg font-semibold text-ink-900 mb-3 tracking-tight">
+                    {retainer.name}
+                  </h3>
+                  <div className="mb-4 flex items-baseline gap-1">
+                    <span className="text-3xl font-bold text-ink-900 tracking-tight tabular-nums">
+                      {retainer.price}
+                    </span>
+                    <span className="text-ink-500 text-sm">{retainer.period}</span>
+                  </div>
+                  <p className="text-ink-600 mb-6 text-sm leading-relaxed">{retainer.description}</p>
+                  <ul className="space-y-2.5">
+                    {retainer.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2.5">
+                        <span className="text-emerald-500 flex-shrink-0 mt-0.5">
+                          <CheckIcon className="w-4 h-4" />
+                        </span>
+                        <span className="text-sm text-ink-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Add-ons */}
+        <section className="section bg-warm-soft">
+          <div className="container-narrow">
+            <div className="section-heading section-heading-center">
+              <span className="eyebrow eyebrow-center mb-5">Add-ons</span>
+              <h2 className="text-balance">Enhance your project</h2>
+              <p className="text-lg text-ink-600 mt-4">
+                À la carte services to extend your capabilities
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl border border-line divide-y divide-line">
+              {addOns.map((addon) => (
+                <div
+                  key={addon.name}
+                  className="flex items-center justify-between gap-4 px-6 py-4 hover:bg-brand-50/30 transition-colors"
+                >
+                  <span className="font-medium text-ink-900">{addon.name}</span>
+                  <span className="text-sm text-ink-600 tabular-nums font-medium">{addon.price}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Payment & Terms */}
+        <section className="section bg-surface">
+          <div className="container-x">
+            <div className="section-heading section-heading-center">
+              <span className="eyebrow eyebrow-center mb-5">Payment</span>
+              <h2 className="text-balance">Flexible payment options</h2>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {[
+                {
+                  icon: (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                      <rect width="20" height="14" x="2" y="5" rx="2" />
+                      <line x1="2" x2="22" y1="10" y2="10" />
+                    </svg>
+                  ),
+                  title: 'How Payment Works',
+                  items: ['50% upfront to start', '50% on final delivery', 'Milestone-based for large projects', 'Monthly billing for retainers', 'Major cards accepted'],
+                },
+                {
+                  icon: (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="9" x2="15" y1="13" y2="13" />
+                      <line x1="9" x2="15" y1="17" y2="17" />
+                    </svg>
+                  ),
+                  title: 'Our Guarantee',
+                  items: ['Money-back guarantee*', 'No hidden fees', 'Clear contracts', 'Cancel anytime (retainers)', 'Full ownership of code'],
+                },
+                {
+                  icon: (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  ),
+                  title: 'Typical Timeline',
+                  items: ['Starter: 2-3 weeks', 'Growth: 4-6 weeks', 'Enterprise: Custom', 'We never rush quality'],
+                },
+              ].map((card) => (
+                <div key={card.title} className="bg-white rounded-2xl border border-line p-7">
+                  <span className="inline-flex w-12 h-12 rounded-xl bg-brand-50 text-brand-700 items-center justify-center mb-5">
+                    {card.icon}
+                  </span>
+                  <h3 className="text-lg font-semibold text-ink-900 mb-3">{card.title}</h3>
+                  <ul className="space-y-2 text-sm text-ink-600">
+                    {card.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span className="text-brand-500 mt-1.5 w-1 h-1 rounded-full bg-brand-500 flex-shrink-0" aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="section bg-warm-soft">
+          <div className="container-narrow">
+            <div className="section-heading section-heading-center">
+              <span className="eyebrow eyebrow-center mb-5">FAQ</span>
+              <h2 className="text-balance">Common questions</h2>
+              <p className="text-lg text-ink-600 mt-4">
+                Everything you need to know about our pricing
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {faqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl border border-line overflow-hidden transition-colors hover:border-brand-300"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
+                    className="w-full px-6 py-5 flex items-center justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                    aria-expanded={expandedFAQ === index}
+                    aria-controls={`faq-${index}`}
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <span className="font-semibold text-ink-900">{faq.question}</span>
+                    <svg
+                      className={`w-5 h-5 text-ink-500 flex-shrink-0 transition-transform duration-normal ease-out-soft ${
+                        expandedFAQ === index ? 'rotate-180' : ''
+                      }`}
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                  {expandedFAQ === index && (
+                    <motion.div
+                      id={`faq-${index}`}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-5">
+                        <p className="text-ink-600 leading-relaxed text-sm">{faq.answer}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 text-white">
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage:
+                'radial-gradient(at 20% 30%, rgba(255,255,255,0.25) 0px, transparent 55%), radial-gradient(at 80% 70%, rgba(255,255,255,0.15) 0px, transparent 50%)',
+            }}
+            aria-hidden="true"
+          />
+          <div className="relative container-x section">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-balance text-white mb-4">Ready to get started?</h2>
+              <p className="text-lg text-white/85 mb-8 leading-relaxed">
+                Book a free 30-minute consultation. No pressure, just honest advice about what&apos;s right for your project.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-12">
+                <Link href="/contact" className="btn bg-white text-brand-700 hover:bg-brand-50 btn-lg shadow-lift">
+                  Book Free Consultation
+                  <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
                   </svg>
-                </button>
-                {expandedFAQ === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="px-6 pb-5"
-                  >
-                    <p className="text-stone-600 leading-relaxed">{faq.answer}</p>
-                  </motion.div>
-                )}
+                </Link>
+                <Link href="/projects" className="btn btn-lg border-2 border-white/30 bg-transparent text-white hover:bg-white/10">
+                  View Our Work
+                </Link>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* CTA */}
-      <section className="py-20 md:py-24 px-6 lg:px-12 bg-gradient-to-br from-orange-500 to-orange-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Ready to get started?
-          </h2>
-          <p className="text-xl text-orange-50 mb-10 leading-relaxed max-w-2xl mx-auto">
-            Book a free 30-minute consultation. No pressure, just honest advice about what's right for your project.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-orange-600 font-bold text-lg rounded-xl hover:bg-orange-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-            >
-              <span>Book Free Consultation</span>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            <Link
-              href="/projects"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-orange-600 text-white border-2 border-white/20 font-bold text-lg rounded-xl hover:bg-orange-700 transition-all duration-300"
-            >
-              <span>View Our Work</span>
-            </Link>
+              <div className="pt-8 border-t border-white/20">
+                <p className="text-white/85 italic leading-relaxed max-w-2xl mx-auto text-sm md:text-base">
+                  &ldquo;The team took time to understand our needs before recommending a package. No upselling, just genuine help.&rdquo;
+                  <br />
+                  <span className="text-white/70 text-sm font-medium not-italic mt-2 inline-block">— Sarah M., Fashion E-Commerce Client</span>
+                </p>
+              </div>
+            </div>
           </div>
-
-          <div className="mt-12 pt-8 border-t border-orange-400">
-            <p className="text-orange-50 italic leading-relaxed max-w-2xl mx-auto">
-              💬 "The team took time to understand our needs before recommending a package. No upselling, just genuine help."
-              <br />
-              <span className="text-sm font-medium">— Sarah M., Fashion E-Commerce Client</span>
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
     </>
   );
 }

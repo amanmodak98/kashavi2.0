@@ -1,29 +1,25 @@
-'use client';
-
 export function TrustedBy() {
   const stats = [
     { value: '50+', label: 'Projects Delivered' },
     { value: '98%', label: 'Client Satisfaction' },
     { value: '6', label: 'Industries' },
-    { value: '+200%', label: 'Avg Revenue Growth' }
+    { value: '+200%', label: 'Avg Revenue Growth' },
   ];
 
   return (
-    <section className="py-12 bg-white border-y border-stone-200">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="text-center mb-8">
-          <p className="text-sm font-medium text-stone-500 uppercase tracking-wider">
-            Trusted by businesses worldwide
-          </p>
-        </div>
+    <section className="bg-white border-y border-line">
+      <div className="container-x py-12 md:py-14">
+        <p className="text-center text-label text-ink-500 mb-10">
+          Trusted by businesses worldwide
+        </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-orange-500 mb-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-brand-600 tracking-tight tabular-nums mb-2">
                 {stat.value}
               </div>
-              <div className="text-sm text-stone-600 font-medium">
+              <div className="text-sm text-ink-600 font-medium">
                 {stat.label}
               </div>
             </div>

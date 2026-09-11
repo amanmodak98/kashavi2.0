@@ -1,4 +1,8 @@
 // Content data for About page
+// Note: founderStory + founderStory2 are kept for backwards compatibility,
+// but the About page now renders the canonical `founders` array.
+import { founders, whyWeBuilt, team as teamMembers } from '@/data/team';
+
 export const founderStory = {
   eyebrow: "THE ORIGIN STORY",
   headline: "Started from frustration, built with purpose.",
@@ -11,6 +15,22 @@ export const founderStory = {
   photo: "/images/team/Anurag-kashyap.jpg",
   photoAlt: "Kapil Kumar, Founder & CEO of Kashavi Infotech"
 };
+
+export const founderStory2 = {
+  eyebrow: "DELIVERY & ENGINEERING",
+  headline: "The builder who keeps every promise.",
+  paragraphs: [
+    "Anurag started shipping software at 18 and never stopped. Over twelve years he has personally led the build of 50+ digital products for clients across healthcare, travel, e-commerce, news media and SaaS — from a 2-week MVP for a Bharat-first D2C brand to a multi-tenant hotel platform used by 200+ properties.",
+    "He runs Kashavi Infotech as Managing Director and Co-Founder, owning delivery, client relationships, and the standards every build is measured against. He signs off every architecture decision before code is written, and personally reviews every shipped release against the original brief.",
+    "Anurag writes about pragmatic engineering, AI integration patterns and Indian-market product thinking. He believes great digital products are built by people who care more about the outcome than the deliverable."
+  ],
+  signature: "Anurag Kashyap",
+  photo: "/images/team/Anurag-kashyap.jpg",
+  photoAlt: "Anurag Kashyap, Managing Director & Co-Founder of Kashavi Infotech"
+};
+
+// Canonical founders array used by the About page
+export { founders, whyWeBuilt };
 
 export const problemCards = [
   {
@@ -85,40 +105,8 @@ export const metrics = [
   { value: 2021, suffix: "", label: "Founded" }
 ];
 
-export const team = [
-  {
-    id: "Anurag-kashyap",
-    name: "Kapil Kumar",
-    role: "Founder & CEO",
-    bio: "Started coding at 16, got frustrated with bad websites at 19, convinced he could do better at 21, and proving it at 26. Obsessed with the space between design and code where most projects fail.",
-    avatar: "AK",
-    color: "#F97316"
-  },
-  {
-    id: "design-team",
-    name: "Design Team",
-    role: "Creative Directors",
-    bio: "The ones who debate button border-radius for 20 minutes. Who redesign everything three times before showing you. Who care way too much about typography. And that's exactly why the work looks this good.",
-    avatar: "DT",
-    color: "#3B82F6"
-  },
-  {
-    id: "dev-team",
-    name: "Development Team",
-    role: "Engineering Leads",
-    bio: "The people who read documentation for fun. Who refactor code at 2 AM because it 'could be cleaner.' Who get excited about build optimization. They make it work, and then they make it work better.",
-    avatar: "DV",
-    color: "#10B981"
-  },
-  {
-    id: "growth-team",
-    name: "Growth Team",
-    role: "Strategy & Marketing",
-    bio: "Living in Google Analytics. Running A/B tests on everything. Obsessed with conversion rates and page speed. They're the reason your site doesn't just look good, it performs.",
-    avatar: "GT",
-    color: "#8B5CF6"
-  }
-];
+// Backwards-compatible team export — uses the rich team data from /data/team
+export const team = teamMembers;
 
 export const successStories = [
   {

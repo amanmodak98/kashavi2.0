@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { CustomCursor } from "@/components/CustomCursor";
 import { generateOrganizationSchema, generateWebsiteSchema } from "@/lib/seo";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://kashaviinfotech.com'),
@@ -71,7 +78,7 @@ export default function RootLayout({
   const websiteSchema = generateWebsiteSchema();
 
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
         <script
           type="application/ld+json"
@@ -82,14 +89,21 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className={`${GeistSans.variable} font-sans antialiased bg-orange-50 text-neutral-800`}>
+      <body className="font-sans antialiased bg-canvas text-ink-900">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-toast focus:rounded-md focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-brand-lift"
+        >
+          Skip to content
+        </a>
         <CustomCursor />
         <Navbar />
         <SmoothScroll>
-          <div className="pt-20">
+          <div id="main" className="pt-[calc(4rem+var(--announce-h,0px)+1rem)] lg:pt-[calc(5rem+var(--announce-h,0px)+0.5rem)]">
             {children}
           </div>
         </SmoothScroll>
+        <Footer />
       </body>
     </html>
   );

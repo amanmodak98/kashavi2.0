@@ -60,15 +60,15 @@ export function Hero3DDesktop() {
             <div className="grid grid-cols-3 gap-8 mb-12 max-w-xl">
               <div>
                 <div className="text-4xl font-black text-orange-500 mb-1">50+</div>
-                <div className="text-sm text-stone-400">Projects</div>
+                <div className="text-sm text-stone-600">Projects</div>
               </div>
               <div>
                 <div className="text-4xl font-black text-orange-500 mb-1">98%</div>
-                <div className="text-sm text-stone-400">Happy Clients</div>
+                <div className="text-sm text-stone-600">Happy Clients</div>
               </div>
               <div>
                 <div className="text-4xl font-black text-orange-500 mb-1">2-3wk</div>
-                <div className="text-sm text-stone-400">Delivery</div>
+                <div className="text-sm text-stone-600">Delivery</div>
               </div>
             </div>
 
@@ -97,7 +97,7 @@ export function Hero3DDesktop() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
-        <svg className="w-6 h-6 text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-6 h-6 text-stone-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>

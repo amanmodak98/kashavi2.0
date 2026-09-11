@@ -14,7 +14,9 @@ import {
   metrics,
   team,
   successStories,
-  process
+  process,
+  founders,
+  whyWeBuilt
 } from './aboutData';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -126,48 +128,64 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Founder Story */}
+      {/* Meet the Founders */}
       <section className="fade-up-section py-24 md:py-32">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-[60%_40%] gap-12 lg:gap-16 items-center">
-            <div className="space-y-8">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-4">
-                  {founderStory.eyebrow}
-                </div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-neutral-900 mb-6 leading-tight tracking-tight">
-                  {founderStory.headline}
-                </h2>
-              </div>
+        <div className="container-x">
+          <div className="text-center mb-16">
+            <span className="eyebrow eyebrow-center mb-5">The Founders</span>
+            <h2 className="text-balance">Two people, one standard.</h2>
+            <p className="text-lg text-ink-600 mt-4 max-w-2xl mx-auto">
+              Anurag owns delivery and engineering. Kapil owns strategy and growth. Every build at Kashavi has both reviewing it.
+            </p>
+          </div>
 
-              <div className="space-y-6">
-                {founderStory.paragraphs.map((paragraph, i) => (
-                  <p key={i} className="text-lg text-neutral-700 leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-
-              <div className="pt-4">
-                <p className="text-base font-semibold text-neutral-900">
-                  — {founderStory.signature}
-                </p>
-              </div>
-            </div>
-
-            {/* Founder Photo Placeholder */}
-            <div className="relative">
-              <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-orange-600/20 border-2 border-neutral-200 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-primary flex items-center justify-center">
-                    <span className="text-5xl font-black text-white">AK</span>
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
+            {founders.map((founder) => (
+              <article
+                key={founder.id}
+                className="bg-white rounded-3xl border border-line p-7 md:p-9 transition-all duration-normal ease-out-soft hover:shadow-lift hover:-translate-y-0.5"
+              >
+                <div className="flex items-start gap-5 mb-6">
+                  <div className={`founder-initial bg-gradient-to-br ${founder.accent}`}>
+                    {founder.initials}
                   </div>
-                  <p className="text-sm text-neutral-600 font-medium">
-                    Professional photo placeholder
+                  <div>
+                    <span className="text-label text-brand-700 uppercase tracking-wider">
+                      {founder.role}
+                    </span>
+                    <h3 className="text-2xl font-bold text-ink-900 tracking-tight mt-1">
+                      {founder.name}
+                    </h3>
+                  </div>
+                </div>
+
+                <p className="text-base font-semibold text-ink-900 mb-4 italic">
+                  &ldquo;{founder.headline}&rdquo;
+                </p>
+
+                <div className="space-y-4">
+                  {founder.paragraphs.map((paragraph, i) => (
+                    <p key={i} className="text-sm text-ink-600 leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+
+                <div className="pt-5 mt-6 border-t border-line">
+                  <p className="text-sm font-semibold text-ink-900">
+                    — {founder.signature}
                   </p>
                 </div>
-              </div>
-            </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Shared "Why we built Kashavi" manifesto */}
+          <div className="mt-16 max-w-3xl mx-auto text-center">
+            <span className="eyebrow eyebrow-center mb-5">Why We Built Kashavi</span>
+            <p className="text-lg md:text-xl text-ink-700 leading-relaxed">
+              {whyWeBuilt}
+            </p>
           </div>
         </div>
       </section>
@@ -288,13 +306,10 @@ export default function AboutPage() {
                 className="group bg-white rounded-2xl overflow-hidden border-2 border-neutral-200 hover:border-primary hover:shadow-2xl transition-all duration-300"
                 whileHover={{ y: -8 }}
               >
-                <div className="aspect-square flex items-center justify-center" style={{ backgroundColor: `${member.color}15` }}>
-                  <div
-                    className="w-32 h-32 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: member.color }}
-                  >
-                    <span className="text-4xl font-black text-white">{member.avatar}</span>
-                  </div>
+                <div className={`aspect-square flex items-center justify-center bg-gradient-to-br ${member.accent}`}>
+                  <span className="w-32 h-32 rounded-full bg-white/15 backdrop-blur-sm border-2 border-white/40 flex items-center justify-center text-4xl font-black text-white">
+                    {member.initials}
+                  </span>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-neutral-900 mb-1">

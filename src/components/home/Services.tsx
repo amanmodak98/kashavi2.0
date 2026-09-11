@@ -37,7 +37,7 @@ export function Services() {
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-8 h-[1px] bg-stone-400" />
-            <span className="text-xs font-medium uppercase tracking-wider text-stone-500">
+            <span className="text-xs font-medium uppercase tracking-wider text-stone-600">
               What We Do
             </span>
             <div className="w-8 h-[1px] bg-stone-400" />

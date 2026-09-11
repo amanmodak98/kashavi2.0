@@ -1,375 +1,332 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { heading, body, section, container, textColor, cn } from '@/lib/typography';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useState } from 'react';
 
 const categories = [
-  { name: 'All', slug: 'all', count: 24 },
-  { name: 'Web Development', slug: 'web-dev', count: 8 },
-  { name: 'AI & Machine Learning', slug: 'ai-ml', count: 6 },
-  { name: 'Mobile Apps', slug: 'mobile', count: 5 },
-  { name: 'Digital Marketing', slug: 'marketing', count: 5 },
+  { name: 'All', slug: 'all', count: 24, color: 'brand' },
+  { name: 'Web Development', slug: 'web-dev', count: 8, color: 'blue' },
+  { name: 'AI & ML', slug: 'ai-ml', count: 6, color: 'purple' },
+  { name: 'Mobile Apps', slug: 'mobile', count: 5, color: 'emerald' },
+  { name: 'Marketing', slug: 'marketing', count: 5, color: 'pink' },
 ];
 
 const featuredPost = {
-  title: 'Building AI-Powered Applications: A Complete Guide for 2024',
-  excerpt: 'Learn how to integrate AI capabilities into your web and mobile applications. From OpenAI APIs to custom ML models, we cover everything you need to know.',
-  category: 'AI & Machine Learning',
-  author: 'Kapil Kumar',
-  date: 'September 5, 2024',
+  title: 'Building AI-Powered Applications: Complete Guide for 2026',
+  excerpt: 'Learn how to integrate AI capabilities into your web and mobile applications. From OpenAI APIs to custom ML models.',
+  category: 'AI & ML',
+  author: { name: 'Kapil Kumar', initials: 'KK' },
+  date: 'September 5, 2026',
   readTime: '12 min read',
-  image: '🤖',
-  slug: 'building-ai-powered-applications-2024',
-  featured: true,
+  link: '/blog/ai-powered-applications',
+  gradient: 'from-brand-500 to-brand-700',
+  icon: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16">
+      <path d="M12 8V4H8" />
+      <rect width="16" height="12" x="4" y="8" rx="2" />
+      <path d="M2 14h2" />
+      <path d="M20 14h2" />
+      <path d="M15 13v2" />
+      <path d="M9 13v2" />
+    </svg>
+  ),
 };
 
 const posts = [
   {
-    title: 'Next.js 14: What\'s New and Why It Matters',
-    excerpt: 'Explore the latest features in Next.js 14, including Server Actions, Partial Prerendering, and improved performance.',
+    title: 'Next.js 16 Performance Tips',
+    excerpt: 'Optimize your Next.js app with these proven techniques.',
     category: 'Web Development',
-    author: 'Dev Team',
-    date: 'September 1, 2024',
-    readTime: '8 min read',
-    image: '⚡',
-    slug: 'nextjs-14-whats-new',
+    author: { name: 'Aman Singh', initials: 'AS' },
+    date: 'Sep 3, 2026',
+    readTime: '8 min',
+    gradient: 'from-blue-500 to-blue-700',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+    link: '/blog/nextjs-performance',
   },
   {
-    title: 'Optimizing React Performance: Advanced Techniques',
-    excerpt: 'Deep dive into React optimization strategies that can dramatically improve your app\'s speed and user experience.',
-    category: 'Web Development',
-    author: 'Dev Team',
-    date: 'August 28, 2024',
-    readTime: '10 min read',
-    image: '⚛️',
-    slug: 'optimizing-react-performance',
-  },
-  {
-    title: 'ChatGPT for Business: Real-World Use Cases',
-    excerpt: 'Discover how businesses are leveraging ChatGPT to automate customer service, generate content, and boost productivity.',
-    category: 'AI & Machine Learning',
-    author: 'Kapil Kumar',
-    date: 'August 25, 2024',
-    readTime: '7 min read',
-    image: '💬',
-    slug: 'chatgpt-business-use-cases',
-  },
-  {
-    title: 'Mobile-First Design: Best Practices for 2024',
-    excerpt: 'Why mobile-first design is critical and how to implement it effectively in your next project.',
+    title: 'Mobile-First Design in 2026',
+    excerpt: 'Why mobile-first is still the winning strategy.',
     category: 'Mobile Apps',
-    author: 'Design Team',
-    date: 'August 22, 2024',
-    readTime: '6 min read',
-    image: '📱',
-    slug: 'mobile-first-design-best-practices',
+    author: { name: 'Priya Sharma', initials: 'PS' },
+    date: 'Sep 1, 2026',
+    readTime: '6 min',
+    gradient: 'from-emerald-500 to-emerald-700',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12">
+        <rect width="14" height="20" x="5" y="2" rx="2" />
+        <path d="M12 18h.01" />
+      </svg>
+    ),
+    link: '/blog/mobile-first-design',
   },
   {
-    title: 'SEO in 2024: What Actually Works',
-    excerpt: 'Cut through the noise with proven SEO strategies that drive real traffic and conversions in today\'s landscape.',
-    category: 'Digital Marketing',
-    author: 'Growth Team',
-    date: 'August 18, 2024',
-    readTime: '9 min read',
-    image: '🔍',
-    slug: 'seo-2024-what-works',
+    title: 'SEO Strategies That Actually Work',
+    excerpt: 'Data-backed SEO tactics for 2026 and beyond.',
+    category: 'Marketing',
+    author: { name: 'Rahul Verma', initials: 'RV' },
+    date: 'Aug 30, 2026',
+    readTime: '10 min',
+    gradient: 'from-pink-500 to-pink-700',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12">
+        <line x1="12" x2="12" y1="20" y2="10" />
+        <line x1="18" x2="18" y1="20" y2="4" />
+        <line x1="6" x2="6" y1="20" y2="16" />
+        <line x1="3" x2="21" y1="20" y2="20" />
+      </svg>
+    ),
+    link: '/blog/seo-strategies',
   },
   {
-    title: 'Building Scalable APIs with Node.js',
-    excerpt: 'Learn architecture patterns and best practices for creating robust, scalable REST and GraphQL APIs.',
+    title: 'React Server Components Explained',
+    excerpt: 'Understanding RSC and when to use them.',
     category: 'Web Development',
-    author: 'Dev Team',
-    date: 'August 15, 2024',
-    readTime: '11 min read',
-    image: '🔧',
-    slug: 'building-scalable-apis-nodejs',
+    author: { name: 'Kapil Kumar', initials: 'KK' },
+    date: 'Aug 28, 2026',
+    readTime: '7 min',
+    gradient: 'from-blue-500 to-blue-700',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" x2="22" y1="12" y2="12" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
+    link: '/blog/react-server-components',
   },
   {
-    title: 'Flutter vs React Native: 2024 Comparison',
-    excerpt: 'An honest comparison of the two leading cross-platform frameworks to help you choose the right one.',
-    category: 'Mobile Apps',
-    author: 'Dev Team',
-    date: 'August 12, 2024',
-    readTime: '8 min read',
-    image: '📲',
-    slug: 'flutter-vs-react-native-2024',
+    title: 'Building Custom AI Chatbots',
+    excerpt: 'Step-by-step guide to creating intelligent chatbots.',
+    category: 'AI & ML',
+    author: { name: 'Aman Singh', initials: 'AS' },
+    date: 'Aug 26, 2026',
+    readTime: '15 min',
+    gradient: 'from-brand-500 to-brand-700',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        <path d="M8 10h.01" />
+        <path d="M12 10h.01" />
+        <path d="M16 10h.01" />
+      </svg>
+    ),
+    link: '/blog/custom-ai-chatbots',
   },
   {
-    title: 'Content Marketing That Converts',
-    excerpt: 'How to create content that not only attracts visitors but turns them into paying customers.',
-    category: 'Digital Marketing',
-    author: 'Growth Team',
-    date: 'August 8, 2024',
-    readTime: '7 min read',
-    image: '📝',
-    slug: 'content-marketing-that-converts',
-  },
-  {
-    title: 'Machine Learning for Beginners: Getting Started',
-    excerpt: 'Your first steps into machine learning: essential concepts, tools, and resources to begin your journey.',
-    category: 'AI & Machine Learning',
-    author: 'Dev Team',
-    date: 'August 5, 2024',
-    readTime: '10 min read',
-    image: '🧠',
-    slug: 'machine-learning-beginners-guide',
+    title: 'TypeScript Best Practices 2026',
+    excerpt: 'Write cleaner, safer TypeScript code.',
+    category: 'Web Development',
+    author: { name: 'Priya Sharma', initials: 'PS' },
+    date: 'Aug 24, 2026',
+    readTime: '9 min',
+    gradient: 'from-blue-500 to-blue-700',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+    link: '/blog/typescript-best-practices',
   },
 ];
 
 export default function BlogPage() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.hero-content', {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: 'power2.out'
-      });
-
-      gsap.from('.category-pill', {
-        y: 20,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: '.categories-section',
-          start: 'top 85%'
-        }
-      });
-
-      gsap.from('.featured-post', {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        scrollTrigger: {
-          trigger: '.featured-post',
-          start: 'top 80%'
-        }
-      });
-
-      gsap.from('.blog-card', {
-        y: 40,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: '.blog-grid',
-          start: 'top 75%'
-        }
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const [activeCategory, setActiveCategory] = useState('all');
 
   return (
-    <section ref={sectionRef} className="min-h-screen">
-      {/* Hero Section */}
-      <div className={cn(section.hero, 'bg-gradient-to-br from-orange-50 via-white to-blue-50')}>
-        <div className={container.default}>
-          <div className="hero-content text-center max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-sm font-semibold text-primary uppercase tracking-wider mb-6">
-              Our Blog
-            </span>
-            <h1 className={cn(heading.h1, textColor.primary, 'mb-6 text-5xl md:text-7xl font-black')}>
-              Insights, Tutorials &
-              <span className="block text-primary">Industry Trends</span>
+    <div className="bg-canvas">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-warm">
+        <div className="absolute inset-0 bg-grid opacity-30" aria-hidden="true" />
+        <div
+          className="absolute -top-40 -right-32 w-[30rem] h-[30rem] bg-brand-200/40 rounded-full blur-3xl animate-drift"
+          aria-hidden="true"
+        />
+
+        <div className="relative container-x pt-16 pb-12 md:pt-20 md:pb-16 text-center">
+          <div className="max-w-3xl mx-auto">
+            <span className="eyebrow eyebrow-center mb-6">Insights & Tutorials</span>
+            <h1 className="text-balance mb-5">
+              Learn from Real-World<br />
+              <span className="text-brand-600">Experience</span>
             </h1>
-            <p className={cn(body.large, textColor.secondary)}>
-              Expert advice on web development, mobile apps, AI, and digital growth. Stay ahead with actionable insights from our team.
+            <p className="text-lg md:text-xl text-ink-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+              Practical guides, case studies, and insights from building 50+ digital products.
             </p>
-          </div>
-        </div>
-      </div>
 
-      {/* Categories */}
-      <div className={cn('categories-section', section.compact, 'bg-white border-b border-neutral-200')}>
-        <div className={container.default}>
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category, index) => (
-              <button
-                key={index}
-                className={cn(
-                  'category-pill px-6 py-3 rounded-full font-semibold transition-all duration-300',
-                  category.slug === 'all'
-                    ? 'bg-primary text-white shadow-lg'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-                )}
-              >
-                {category.name}
-                <span className="ml-2 text-sm opacity-70">({category.count})</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Featured Post */}
-      <div className={cn(section.large, 'bg-gradient-to-b from-white to-neutral-50')}>
-        <div className={container.default}>
-          <div className="text-center mb-12">
-            <h2 className={cn(heading.h2, textColor.primary)}>
-              Featured <span className="text-primary">Article</span>
-            </h2>
-          </div>
-
-          <div className="featured-post glass-card p-8 md:p-12 group hover:shadow-2xl transition-all duration-500">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="order-2 md:order-1">
-                <div className="inline-block px-3 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4">
-                  {featuredPost.category}
-                </div>
-                <h3 className={cn(heading.h1, textColor.primary, 'mb-4 text-3xl md:text-4xl group-hover:text-primary transition-colors')}>
-                  {featuredPost.title}
-                </h3>
-                <p className={cn(body.large, textColor.secondary, 'mb-6')}>
-                  {featuredPost.excerpt}
-                </p>
-                <div className="flex items-center gap-6 text-sm text-neutral-600 mb-6">
-                  <span className="font-semibold">{featuredPost.author}</span>
-                  <span>•</span>
-                  <span>{featuredPost.date}</span>
-                  <span>•</span>
-                  <span>{featuredPost.readTime}</span>
-                </div>
-                <Link
-                  href={`/blog/${featuredPost.slug}`}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300"
-                >
-                  <span>Read Article</span>
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-              <div className="order-1 md:order-2 text-center">
-                <div className="text-9xl md:text-[12rem] group-hover:scale-110 transition-transform duration-500">
-                  {featuredPost.image}
-                </div>
-              </div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {categories.map((cat) => {
+                const active = activeCategory === cat.slug;
+                return (
+                  <button
+                    key={cat.slug}
+                    type="button"
+                    onClick={() => setActiveCategory(cat.slug)}
+                    aria-pressed={active}
+                    className={`px-5 py-2 rounded-full font-semibold text-sm transition-all duration-normal ease-out-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
+                      active
+                        ? 'bg-brand-600 text-white shadow-brand-soft'
+                        : 'bg-white text-ink-700 border border-line hover:border-brand-300 hover:text-brand-700'
+                    }`}
+                  >
+                    {cat.name}
+                    <span className={`text-xs ml-1.5 ${active ? 'text-white/80' : 'text-ink-500'}`}>
+                      ({cat.count})
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Recent Posts */}
-      <div className={cn(section.large, 'bg-white')}>
-        <div className={container.default}>
-          <div className="text-center mb-16">
-            <h2 className={cn(heading.h1, textColor.primary, 'mb-4')}>
-              Recent <span className="text-primary">Articles</span>
-            </h2>
-            <p className={cn(body.large, textColor.secondary, 'max-w-2xl mx-auto')}>
-              Fresh insights and tutorials from our team of experts.
-            </p>
-          </div>
-
-          <div className="blog-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post, index) => (
-              <Link
-                key={index}
-                href={`/blog/${post.slug}`}
-                className="blog-card glass-card p-6 group hover:shadow-xl transition-all duration-300"
-              >
-                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {post.image}
-                </div>
-                <div className="inline-block px-3 py-1 bg-orange-100 text-primary text-xs font-semibold rounded-full mb-3">
-                  {post.category}
-                </div>
-                <h3 className={cn(heading.h3, textColor.primary, 'mb-3 group-hover:text-primary transition-colors')}>
-                  {post.title}
-                </h3>
-                <p className={cn(body.default, textColor.secondary, 'mb-4')}>
-                  {post.excerpt}
-                </p>
-                <div className="flex items-center gap-3 text-xs text-neutral-500 mb-4">
-                  <span className="font-semibold">{post.author}</span>
-                  <span>•</span>
-                  <span>{post.date}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-neutral-500">{post.readTime}</span>
-                  <svg className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      {/* Featured post */}
+      <section className="container-x section-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link
+            href={featuredPost.link}
+            className="group block bg-white rounded-3xl border border-line overflow-hidden transition-all duration-normal ease-out-soft hover:shadow-lift hover:-translate-y-0.5"
+          >
+            <div className="grid md:grid-cols-2 gap-0">
+              <div className={`relative h-72 md:h-auto bg-gradient-to-br ${featuredPost.gradient} flex items-center justify-center`}>
+                <div
+                  className="absolute inset-0 opacity-30"
+                  style={{
+                    backgroundImage:
+                      'radial-gradient(at 30% 30%, rgba(255,255,255,0.35) 0px, transparent 50%)',
+                  }}
+                  aria-hidden="true"
+                />
+                <div className="relative text-white/90">{featuredPost.icon}</div>
+                <span className="absolute top-5 left-5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/30">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                   </svg>
+                  Featured
+                </span>
+              </div>
+
+              <div className="p-7 md:p-10 flex flex-col justify-center">
+                <span className="badge mb-4 w-fit">{featuredPost.category}</span>
+                <h2 className="text-2xl md:text-3xl font-bold text-ink-900 mb-3 tracking-tight transition-colors group-hover:text-brand-700">
+                  {featuredPost.title}
+                </h2>
+                <p className="text-ink-600 mb-6 leading-relaxed">
+                  {featuredPost.excerpt}
+                </p>
+                <div className="flex flex-wrap items-center gap-3 text-sm text-ink-500">
+                  <div className="flex items-center gap-2">
+                    <span className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white text-xs font-bold">
+                      {featuredPost.author.initials}
+                    </span>
+                    <span className="font-medium text-ink-700">{featuredPost.author.name}</span>
+                  </div>
+                  <span aria-hidden="true">•</span>
+                  <span>{featuredPost.date}</span>
+                  <span aria-hidden="true">•</span>
+                  <span>{featuredPost.readTime}</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+      </section>
+
+      {/* Blog grid */}
+      <section className="container-x section-sm">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post, index) => (
+            <motion.article
+              key={post.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Link
+                href={post.link}
+                className="group block h-full bg-white rounded-2xl border border-line overflow-hidden transition-all duration-normal ease-out-soft hover:border-line-strong hover:shadow-lift hover:-translate-y-0.5"
+              >
+                <div className={`relative h-44 bg-gradient-to-br ${post.gradient} flex items-center justify-center text-white/90`}>
+                  <div
+                    className="absolute inset-0 opacity-30"
+                    style={{
+                      backgroundImage:
+                        'radial-gradient(at 30% 30%, rgba(255,255,255,0.35) 0px, transparent 50%)',
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span className="relative">{post.icon}</span>
+                </div>
+
+                <div className="p-6">
+                  <span className="badge mb-3">{post.category}</span>
+                  <h3 className="text-lg font-semibold text-ink-900 mb-2 tracking-tight line-clamp-2 transition-colors group-hover:text-brand-700">
+                    {post.title}
+                  </h3>
+                  <p className="text-sm text-ink-600 mb-4 line-clamp-2 leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between pt-4 border-t border-line">
+                    <div className="flex items-center gap-2">
+                      <span className={`w-7 h-7 rounded-full bg-gradient-to-br ${post.gradient} flex items-center justify-center text-white text-xs font-bold`}>
+                        {post.author.initials}
+                      </span>
+                      <span className="text-xs font-medium text-ink-700">{post.author.name}</span>
+                    </div>
+                    <span className="text-xs text-ink-500">{post.readTime}</span>
+                  </div>
                 </div>
               </Link>
-            ))}
-          </div>
-
-          {/* Load More */}
-          <div className="text-center mt-12">
-            <button className="px-8 py-4 bg-neutral-100 text-neutral-900 rounded-xl font-semibold hover:bg-neutral-200 transition-all duration-300">
-              Load More Articles
-            </button>
-          </div>
+            </motion.article>
+          ))}
         </div>
-      </div>
+      </section>
 
-      {/* Newsletter Subscription */}
-      <div className={cn(section.large, 'bg-gradient-to-br from-primary via-accent to-primary')}>
-        <div className={container.narrow}>
-          <div className="text-center text-white">
-            <h2 className="text-4xl md:text-5xl font-black mb-6">
-              Never Miss an Update
-            </h2>
-            <p className="text-xl mb-10 opacity-90">
-              Get the latest articles, tutorials, and industry insights delivered straight to your inbox.
+      {/* Newsletter */}
+      <section className="container-x section-sm">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 text-white">
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage:
+                'radial-gradient(at 20% 30%, rgba(255,255,255,0.25) 0px, transparent 55%), radial-gradient(at 80% 70%, rgba(255,255,255,0.15) 0px, transparent 50%)',
+            }}
+            aria-hidden="true"
+          />
+          <div className="relative px-6 py-12 md:p-14 text-center">
+            <h2 className="text-balance text-white mb-3">Never miss an update</h2>
+            <p className="text-lg text-white/85 max-w-xl mx-auto mb-8 leading-relaxed">
+              Join 2,000+ developers getting weekly insights on web dev, AI, and growth strategies.
             </p>
-            <form className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <label htmlFor="blog-newsletter" className="sr-only">Email address</label>
               <input
+                id="blog-newsletter"
                 type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-xl text-neutral-900 focus:outline-none focus:ring-2 focus:ring-white"
+                placeholder="your@email.com"
+                required
+                className="flex-1 px-5 py-3.5 bg-white/10 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder:text-brand-100 focus:outline-none focus:ring-2 focus:ring-white focus:border-white"
               />
-              <button
-                type="submit"
-                className="px-8 py-4 bg-white text-primary rounded-xl font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300"
-              >
+              <button type="submit" className="btn bg-white text-brand-700 hover:bg-brand-50 btn-sm">
                 Subscribe
               </button>
             </form>
-            <p className="text-sm mt-4 opacity-70">
-              Join 2,000+ subscribers. Unsubscribe anytime.
-            </p>
           </div>
         </div>
-      </div>
-
-      {/* Topics Cloud */}
-      <div className={cn(section.default, 'bg-white')}>
-        <div className={container.default}>
-          <div className="text-center mb-12">
-            <h2 className={cn(heading.h2, textColor.primary, 'mb-4')}>
-              Explore by <span className="text-primary">Topic</span>
-            </h2>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-3">
-            {[
-              'React', 'Next.js', 'TypeScript', 'Node.js', 'AI & ML',
-              'Mobile Development', 'SEO', 'Performance', 'Security',
-              'UI/UX Design', 'API Design', 'Cloud Computing', 'DevOps',
-              'Growth Hacking', 'Content Strategy', 'E-commerce'
-            ].map((topic, index) => (
-              <button
-                key={index}
-                className="px-5 py-2.5 bg-neutral-100 text-neutral-700 rounded-lg font-medium hover:bg-primary hover:text-white transition-all duration-300"
-              >
-                {topic}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

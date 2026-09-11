@@ -327,7 +327,7 @@ export function GrowthArchitecture() {
 
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                  <div className="text-[0.625rem] font-mono uppercase tracking-[0.15em] text-orange-400 mb-2 leading-tight">
+                  <div className="text-[0.625rem] font-mono uppercase tracking-[0.15em] text-orange-600 mb-2 leading-tight">
                     KASHAVI
                   </div>
                   <div className="text-lg font-black text-white leading-tight mb-1">
